@@ -1,3 +1,5 @@
-flask
+Flask
 gspread
 oauth2client
+requests
+google-api-python-client

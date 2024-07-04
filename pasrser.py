@@ -1,3 +1,4 @@
+from flask import Flask, request
 import requests
 import re
 import gspread
@@ -5,7 +6,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 from googleapiclient.discovery import build
-from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -76,7 +76,7 @@ def save_to_google_sheets(url, views, likes, shares):
 def home():
     return '''
         <form action="/stats" method="post">
-            Video URL (TikTok or YouTube Shorts): <input type="text" name="url">
+            Ссылка на видос(TikTok or YouTube Shorts): <input type="text" name="url">
             <input type="submit" value="Get Stats">
         </form>
     '''
@@ -90,7 +90,7 @@ def stats():
     elif 'youtube.com' in parsed_url.netloc or 'youtu.be' in parsed_url.netloc:
         views, likes, shares = get_youtube_shorts_stats(url)
     else:
-        return "Unsupported URL. Please provide a TikTok or YouTube Shorts URL."
+        return "Не поддерживаемая ссылка. Втавьляй только ссылки от тиктока и ютб шортс."
 
     if views is not None and likes is not None:
         save_to_google_sheets(url, views, likes, shares)
