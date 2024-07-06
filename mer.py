@@ -76,8 +76,8 @@ def save_to_google_sheets(url, views, likes, shares):
 def home():
     return '''
         <form action="/stats" method="post">
-            Video URL (TikTok or YouTube Shorts): <input type="text" name="url">
-            <input type="submit" value="Get Stats">
+            Вставь ссылку на видос: <input type="text" name="url">
+            <input type="submit" value="Результат">
         </form>
     '''
 
@@ -90,7 +90,7 @@ def stats():
     elif 'youtube.com' in parsed_url.netloc or 'youtu.be' in parsed_url.netloc:
         views, likes, shares = get_youtube_shorts_stats(url)
     else:
-        return "Unsupported URL. Please provide a TikTok or YouTube Shorts URL."
+        return "Не поддерживаемая ссылка. Используй только TikTok или YouTube ссылку."
 
     if views is not None and likes is not None:
         save_to_google_sheets(url, views, likes, shares)
